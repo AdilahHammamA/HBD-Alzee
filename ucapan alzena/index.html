@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday Sayang ❤️</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    /* animasi hati */
+    .heart {
+      position: absolute;
+      bottom: -20px;
+      font-size: 20px;
+      color: #ff4f81;
+      animation: floatUp 6s linear infinite;
+      opacity: 0.7;
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(1); opacity: 0.8; }
+      100% { transform: translateY(-110vh) scale(1.5); opacity: 0; }
+    }
+
+    /* sparkle */
+    .sparkle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle 2s infinite alternate;
+      opacity: 0.8;
+    }
+    @keyframes twinkle {
+      from { opacity: 0.2; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1.2); }
+    }
+
+    /* envelope */
+    .envelope {
+      position: relative;
+      width: 300px;
+      height: 200px;
+      background: #ffb6c1;
+      border-radius: 8px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      cursor: pointer;
+      overflow: hidden;
+      z-index: 10;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .envelope:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      border-width: 100px 150px 0 150px;
+      border-style: solid;
+      border-color: #ff8da1 transparent transparent transparent;
+    }
+
+    /* love di tengah amplop */
+    .envelope .love {
+      font-size: 40px;
+      color: #ff3366;
+      z-index: 11;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+
+    .letter {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #fff;
+      padding: 20px;
+      box-sizing: border-box;
+      transition: top 1s;
+      font-size: 14px;
+      line-height: 1.6;
+      border-radius: 6px;
+      overflow-y: auto;
+      white-space: pre-line;
+    }
+    .show .letter {
+      top: 0;
+    }
+    .typed {
+      border-right: 2px solid #ff4f81;
+      white-space: pre-line;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+  <!-- amplop -->
+  <div class="envelope" id="envelope">
+    <div class="love">❤</div>
+    <div class="letter" id="letter">
+      <div id="message" class="typed"></div>
+    </div>
+  </div>
+
+  <script>
+    const envelope = document.getElementById("envelope");
+    const messageEl = document.getElementById("message");
+    const letter = document.getElementById("letter");
+
+    const text = `selamat ulang tahun cintaaa ❤️
+aku bener-bener bangga punya kamu di hidupku. tiap hari sama kamu selalu bikin aku bahagia dan ngerasa lengkap. aku seneng banget lihat kamu terus berproses, berjuang, dan jadi pribadi yang makin hebat.
+
+kita emang belum lama, tapi kita udah bareng-bareng ngelewatin banyak hal—seneng, sedih, capek pun kita rasain sama-sama. semoga kita bisa terus bareng ya, bukan cuma semoga sih… tapi emang harus! 🤍
+
+aku sayang kamu lebih dari apa pun yang bisa aku ungkapin. di umurmu yang baru ini, aku doain kamu selalu sehat, langkahmu dimudahin, makin deket sama cita-cita, dan jadi pribadi yang lebih baik lagi tanpa kehilangan sisi hangat yang aku kagumi dari kamu.
+
+maaf ya kalau aku belum bisa ngasih banyak di hari spesial ini. maaf juga karena aku belum bisa kasih kado ☹ (tapi kalo aku di sampingmu terus bisa jadi kado, cukup ga? wkwk). aku cuma bisa kasih teks ini sama web kecil buatan aku… semoga kamu suka yaa, aku bikin susah payah sampe puluhan ribu codingan (walau dibantu ai dikit hehe).
+
+makasih ya udah hadir di hidupku, jadi alasan aku tersenyum, dan bikin aku selalu ngerasa beruntung. aku bakal selalu ada buat kamu—hari ini, besok, dan seterusnya.
+happy birthday, Alzena Qonita Fuad 🎂✨`;
+
+    let i = 0;
+    let typing = false;
+
+    envelope.addEventListener("click", () => {
+      letter.parentElement.classList.toggle("show");
+      if (!typing) {
+        typing = true;
+        typeWriter();
+      }
+      // hilangin love pas dibuka
+      document.querySelector(".love").style.display = "none";
+    });
+
+    function typeWriter() {
+      if (i < text.length) {
+        messageEl.innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeWriter, 40);
+      } else {
+        messageEl.style.borderRight = "none";
+      }
+    }
+
+    // generate hearts
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerHTML = "❤";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = 12 + Math.random() * 20 + "px";
+      heart.style.animationDuration = 4 + Math.random() * 4 + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 7000);
+    }
+    setInterval(createHeart, 500);
+
+    // generate sparkles
+    function createSparkle() {
+      const sparkle = document.createElement("div");
+      sparkle.className = "sparkle";
+      sparkle.style.top = Math.random() * 100 + "vh";
+      sparkle.style.left = Math.random() * 100 + "vw";
+      document.body.appendChild(sparkle);
+      setTimeout(() => sparkle.remove(), 4000);
+    }
+    setInterval(createSparkle, 300);
+  </script>
+</body>
+</html>
